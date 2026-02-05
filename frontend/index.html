@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Segmentation Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>🚀 AI Segmentation Studio</h1>
+                <p>✨ Intelligent Crack & Drywall Detection via Natural Language</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- LEFT PANEL -->
+            <div class="section">
+                <h2>📤 Upload & Configure</h2>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p><strong>Click or Drag & Drop</strong></p>
+                    <p class="small">PNG, JPG, GIF up to 10MB</p>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+
+                <div class="preview-image hidden" id="imagePreviewContainer">
+                    <img id="imagePreview" alt="Uploaded image">
+                    <div class="image-label">📸 Uploaded Image</div>
+                </div>
+
+                <div class="controls">
+                    <label for="promptSelect">
+                        🎯 Select Semantic Prompt:
+                        <span class="tooltip">ℹ️<span class="tooltiptext">Choose what you want to detect in the image</span></span>
+                    </label>
+                    <select id="promptSelect">
+                        <option value="">-- Choose Detection Type --</option>
+                        <optgroup label="🔴 Crack Detection">
+                            <option value="segment crack">Segment Crack</option>
+                            <option value="segment wall crack">Segment Wall Crack</option>
+                        </optgroup>
+                        <optgroup label="🟡 Drywall Detection">
+                            <option value="segment taping area">Segment Taping Area</option>
+                            <option value="segment joint">Segment Joint</option>
+                            <option value="segment drywall seam">Segment Drywall Seam</option>
+                        </optgroup>
+                    </select>
+
+                    <div class="button-group">
+                        <button id="predictBtn" onclick="predictSegmentation()">
+                            ⚡ <strong>PREDICT</strong>
+                        </button>
+                        <button id="clearBtn" class="secondary" onclick="clearAll()">
+                            🔄 Clear
+                        </button>
+                    </div>
+                </div>
+
+                <div class="message info" id="infoMsg">
+                    💡 <strong>Getting Started:</strong> Upload an image and select a detection type to begin.
+                </div>
+
+                <div class="message success hidden" id="successMsg">
+                    ✅ Segmentation complete!
+                </div>
+
+                <div class="message error hidden" id="errorMsg">
+                    ❌ Error occurred. Please try again.
+                </div>
+
+                <div class="loading" id="loadingMsg">
+                    <div class="spinner"></div>
+                    <p>🔬 Running AI inference...</p>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="section">
+                <h2>📊 Results & Analysis</h2>
+
+                <div id="placeholderMsg" style="text-align: center; padding: 80px 20px; color: #999;">
+                    <p style="font-size: 3em; margin-bottom: 15px;">🎨</p>
+                    <p style="font-size: 1.1em;">Results will appear here</p>
+                </div>
+
+                <div class="results-section hidden" id="resultsSection">
+                    <div>
+                        <div class="result-item">
+                            <img id="resultImage" alt="Input image">
+                            <div class="image-label">📸 Original Image</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="result-item">
+                            <img id="resultMask" alt="Predicted mask">
+                            <div class="image-label">🎯 AI Segmentation Mask</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Slider -->
+                <div class="comparison-slider hidden" id="comparisonSlider">
+                    <div class="img-wrapper">
+                        <img id="sliderBefore" alt="Before">
+                        <div class="img-after">
+                            <img id="sliderAfter" alt="After">
+                        </div>
+                        <div class="slider-handle" id="sliderHandle">
+                            <div class="slider-button">
+                                <i class="fas fa-chevron-left"></i> <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-label" style="margin-top: 12px;">← Drag to Compare →</div>
+                </div>
+
+                <div class="stats hidden" id="statsBox">
+                    <div class="stat-box">
+                        <div class="stat-label">⚡ Processing</div>
+                        <div class="stat-value" id="inferenceTime">-</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">💾 File Size</div>
+                        <div class="stat-value" id="imageSize">-</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">🖼️ Resolution</div>
+                        <div class="stat-value" id="maskPixels">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>🔬 Powered by ResNet18 + UNet Architecture</strong></p>
+            <p>💻 CPU Inference | 📡 API: <code>localhost:8000</code> | 🚀 Production Ready</p>
+            <p style="margin-top: 10px; color: #999;">
+                AI Model: Text-Conditioned Segmentation | Device: RTX 5070 (CPU Fallback)
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
