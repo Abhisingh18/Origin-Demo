@@ -1,4 +1,4 @@
-# MANTIS – Text Conditioned Segmentation
+# AI Segment Model– Text Conditioned Segmentation
 
 This project implements a text-conditioned image segmentation system for:
 
